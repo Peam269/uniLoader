@@ -31,4 +31,12 @@ menu "Huawei board Support"
 		select BOARD_HUAWEI
 		help
 		  Say Y if you want to include support for Huawei P10
+
+	config HUAWEI_BLANC
+		bool "Support for Huawei Mate 10 Pro"
+		default n
+		depends on HI3670
+		select BOARD_HUAWEI
+		help
+		  Say Y if you want to include support for Huawei Mate 10 Pro
 endmenu
