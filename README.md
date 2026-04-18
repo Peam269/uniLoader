@@ -30,6 +30,7 @@ environment in case of a forced and buggy bootloader.
 - Anne
 - Agassi2
 - Victoria
+- Blanc
 
 ### itel
 - P682LPN
