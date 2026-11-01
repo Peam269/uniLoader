@@ -9,7 +9,8 @@
 
 void arch_load_kernel(void* kernel, void* dt, void* ramdisk)
 {
-	memcpy((void*)CONFIG_PAYLOAD_ENTRY, kernel, (unsigned long) &kernel_size);
+	/* The assembly memcpy tail may issue unaligned loads with the MMU off. */
+	__optimized_memcpy((void*)CONFIG_PAYLOAD_ENTRY, kernel, (unsigned long) &kernel_size);
 #ifndef CONFIG_RAMDISK_NO_COPY
 	__optimized_memcpy((void*)CONFIG_RAMDISK_ENTRY, ramdisk, (unsigned long) &ramdisk_size);
 #endif
