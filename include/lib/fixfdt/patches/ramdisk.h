@@ -7,7 +7,7 @@
 #define RAMDISK_H_
 #ifndef CONFIG_RAMDISK_NO_COPY
 
-extern unsigned long ramdisk_size;
+#include <main/boot.h>
 
 int ramdisk_fdt_patch(const void *bootloader_fdt, void *fdt);
 

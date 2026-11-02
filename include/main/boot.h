@@ -7,8 +7,13 @@
 #ifndef BOOT_H_
 #define BOOT_H_
 
+#ifdef __aarch64__
+extern const char kernel_size[];
+extern const char ramdisk_size[];
+#else
 extern unsigned long kernel_size;
 extern unsigned long ramdisk_size;
+#endif
 
 #ifdef __aarch64__
 extern void load_kernel_and_jump(void* dtb, void* x1, void* x2, void* x3,

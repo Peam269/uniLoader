@@ -24,6 +24,10 @@ lib-$(CONFIG_LIBFDT) += \
 lib-$(CONFIG_HUAWEI_KIRIN970) += hisi/dtb-bundle.o hisi/kirin970.o
 
 ifeq ($(ARCH),aarch64)
+# Device-tree traversal otherwise performs many uncached stack accesses.
+fdt_walk_cflags := -O2 -mstrict-align -mgeneral-regs-only -ffreestanding -fno-tree-loop-distribute-patterns
+CFLAGS_fdt.o += $(fdt_walk_cflags)
+CFLAGS_fdt_ro.o += $(fdt_walk_cflags)
 CFLAGS_dtb-bundle.o += $(fdt_walk_cflags)
 endif
 
