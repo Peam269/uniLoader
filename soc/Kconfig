@@ -131,6 +131,12 @@ config QUALCOMM
 		help
 		  Say Y if your device uses HiSilicon Hi3660
 
+	config HI3670
+		bool "Support for HiSilicon Hi3670"
+		select HISILICON
+		help
+		  Say Y if your device uses HiSilicon Hi3670
+
 	config MT6735
 		bool "Support for Mediatek MT6735"
 		select MEDIATEK
