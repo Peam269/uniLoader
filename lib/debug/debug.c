@@ -31,24 +31,17 @@ typedef struct {
 	color text_color;
 } log_style_t;
 
-static const color red = {255, 0, 0, 255};
-static const color orange = {255, 165, 0, 255};
-static const color yellow = {255, 255, 0, 255};
-static const color green = {0, 255, 0, 255};
-static const color gray = {128, 128, 128, 255};
-static const color amber = {255, 192, 0, 255};
-
 static inline log_style_t get_log_style(int level)
 {
 	static const log_style_t styles[] = {
-		[KERN_EMERG]	= {"[EMERG] ", red},
-		[KERN_ALERT]	= {"[ALERT] ", orange},
-		[KERN_CRIT]	= {"[CRIT] ", yellow},
-		[KERN_ERR]	= {"[ERROR] ", red},
-		[KERN_WARNING]	= {"[WARN] ", yellow},
-		[KERN_NOTICE]	= {"[NOTICE] ", green},
-		[KERN_INFO]	= {"[INFO] ", amber},
-		[KERN_DEBUG]	= {"[DEBUG] ", gray}
+		[KERN_EMERG]	= {"[EMERG] ", 255, 0, 0, 255},
+		[KERN_ALERT]	= {"[ALERT] ", 255, 165, 0, 255},
+		[KERN_CRIT]	= {"[CRIT] ", 255, 255, 0, 255},
+		[KERN_ERR]	= {"[ERROR] ", 255, 0, 0, 255},
+		[KERN_WARNING]	= {"[WARN] ", 255, 255, 0, 255},
+		[KERN_NOTICE]	= {"[NOTICE] ", 0, 255, 0, 255},
+		[KERN_INFO]	= {"[INFO] ", 128, 128, 128, 255},
+		[KERN_DEBUG]	= {"[DEBUG] ", 255, 192, 0, 255}
 	};
 
 	return (level >= 0 && level < sizeof(styles)/sizeof(styles[0])) ?
