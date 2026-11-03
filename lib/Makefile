@@ -21,6 +21,12 @@ lib-$(CONFIG_LIBFDT) += \
 	hisi/fdt.o \
 	hisi/patches.o
 
+lib-$(CONFIG_HUAWEI_KIRIN970) += hisi/dtb-bundle.o hisi/kirin970.o
+
+ifeq ($(ARCH),aarch64)
+CFLAGS_dtb-bundle.o += $(fdt_walk_cflags)
+endif
+
 ifneq ($(CONFIG_RAMDISK_NO_COPY),y)
 lib-$(CONFIG_LIBFDT) += fixfdt/patches/ramdisk.o
 endif
