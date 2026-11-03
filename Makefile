@@ -364,7 +364,7 @@ uniloader-libs := $(patsubst %,%/lib.a, $(uniloader-lib-dirs))
 uniloader-all := $(uniloader-objs) $(uniloader-libs)
 
 # Linker script dependencies
-linker-script-deps := $(KERNEL_PATH)
+linker-script-deps := $(KERNEL_PATH) $(DT_PATH)
 ifndef CONFIG_RAMDISK_NO_COPY
 linker-script-deps += $(RAMDISK_PATH)
 endif
@@ -414,7 +414,7 @@ quiet_cmd_gzip_uniloader = GZIP    $@.gz
 quiet_cmd_lz4_uniloader = LZ4     $@.lz4
       cmd_lz4_uniloader = lz4 uniLoader -l -f -q
 
-uniLoader: $(uniloader-all) arch/$(ARCH)/linker.lds FORCE
+uniLoader: $(uniloader-all) arch/$(ARCH)/linker.lds $(linker-script-deps) FORCE
 	$(call if_changed,uniloader_link)
 	$(call if_changed,uniloader_objcopy)
 ifdef CONFIG_COMPRESS_GZIP
