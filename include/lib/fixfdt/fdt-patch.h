@@ -7,7 +7,6 @@
 #define FDT_PATCH_H_
 
 #include <array.h>
-#include <lib/fixfdt/patches/memory.h>
 
 #ifndef CONFIG_RAMDISK_NO_COPY
 #include <lib/fixfdt/patches/ramdisk.h>
@@ -25,8 +24,7 @@
 
 #define FDT_DEFAULT_PATCH_LIST \
 	RAMDISK_PATCH \
-	CMDLINE_PATCH \
-	memory_fdt_patch
+	CMDLINE_PATCH
 
 #define DEFINE_FDT_PATCHES(patches)		\
 	.fdt_patches = (patches),		\

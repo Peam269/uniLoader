@@ -9,5 +9,7 @@ int hisi_framebuffer_fdt_patch(const void *live, void *fdt);
 int hisi_initrd_fdt_patch(const void *live, void *fdt);
 int hisi_kaslr_fdt_patch(const void *live, void *fdt);
 int hisi_psci_fdt_patch(const void *live, void *fdt);
+int hisi_memory_fdt_patch(const void *live, void *fdt);
+int hisi_bootargs_fdt_patch(const void *live, void *fdt);
 
 #endif
