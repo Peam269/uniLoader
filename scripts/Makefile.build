@@ -166,6 +166,7 @@ endef
 
 # Built-in and composite module parts
 $(obj)/%.o: $(src)/%.c FORCE
+	$(Q)mkdir -p $(dir $@)
 	$(call if_changed_rule,cc_o_c)
 
 quiet_cmd_cc_lst_c = MKLST   $@
@@ -191,6 +192,7 @@ quiet_cmd_as_o_S = AS $(quiet_modtag)  $@
 cmd_as_o_S       = $(CC) $(a_flags) -c -o $@ $<
 
 $(obj)/%.o: $(src)/%.S FORCE
+	$(Q)mkdir -p $(dir $@)
 	$(call if_changed_dep,as_o_S)
 
 targets += $(real-objs-y) $(lib-y)
