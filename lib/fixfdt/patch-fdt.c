@@ -9,6 +9,7 @@
 #include <lib/fixfdt/fdt-patch.h>
 #include <lib/libfdt/libfdt.h>
 #include <lib/debug.h>
+#include <main/main.h>
 
 static const fdt_patch default_fdt_patches[] = {
 	FDT_DEFAULT_PATCH_LIST
@@ -70,6 +71,10 @@ void* patch_fdt(struct board_data *board, void* fdt,
 
 	ret = do_fdt_patches(board, fdt, bootloader_fdt);
 	if (ret) {
+#ifdef CONFIG_HUAWEI_KIRIN970
+		printk(KERN_EMERG, "Kirin970 firmware fixups failed; refusing to boot.\n");
+		HANG();
+#endif
 		/* Return the original FDT upon failure. */
 		return fdt;
 	}

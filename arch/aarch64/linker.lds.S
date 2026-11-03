@@ -41,6 +41,7 @@ SECTIONS
 	.dtb ALIGN(4096) : {
 		dtb = .;
 		DTB_PATH
+		dtb_end = .;
 	}
 
 #ifndef CONFIG_RAMDISK_NO_COPY

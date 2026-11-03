@@ -8,6 +8,10 @@
 #include <main/main.h>
 #include <lib/debug.h>
 #include <lib/fixfdt/patch-fdt.h>
+#ifdef CONFIG_HUAWEI_KIRIN970
+#include <lib/hisi/dtb-bundle.h>
+extern unsigned char dtb_end[];
+#endif
 
 extern struct board_data board_ops;
 
@@ -27,6 +31,10 @@ static void print_splash(void)
 void main(void* dt, void* kernel, void* ramdisk, void *bootloader_fdt)
 {
 	INITCALL(board_ops.ops.early_init);
+#ifdef CONFIG_HUAWEI_KIRIN970
+	dt = hisi_kirin970_select_fdt(dt, dtb_end - (unsigned char *)dt,
+		bootloader_fdt);
+#endif
 	INITCALL(board_ops.ops.drivers_init);
 
 	print_splash();
