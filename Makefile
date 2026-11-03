@@ -390,6 +390,7 @@ ifdef CONFIG_RAMDISK_NO_COPY
 endif
 
 arch/$(ARCH)/linker.lds: arch/$(ARCH)/linker.lds.S $(linker-script-deps) FORCE
+	$(Q)mkdir -p $(dir $@)
 	$(call if_changed,cpp_lds)
 
 #
