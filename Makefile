@@ -196,7 +196,7 @@ LINUXINCLUDE    := -Iinclude \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
-KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes \
+KBUILD_CFLAGS   := -std=gnu11 -Wall -Wundef -Wstrict-prototypes \
 		   -fno-strict-aliasing -fno-common \
 		   -fno-stack-protector \
 		   -Werror-implicit-function-declaration \
@@ -402,7 +402,7 @@ quiet_cmd_uniloader_link = LD      $@.o
                                  --start-group $(uniloader-libs) $(LIBGCC) --end-group \
                                  -o $@.o \
                                  --script=arch/$(ARCH)/linker.lds \
-                                 --no-warn-rwx-segments
+                                 $(call ld-option,--no-warn-rwx-segments)
 
 quiet_cmd_uniloader_objcopy = OBJCOPY $@
       cmd_uniloader_objcopy = $(OBJCOPY) -O binary $@.o $@
