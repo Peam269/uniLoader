@@ -66,3 +66,13 @@ int hisi_touchscreen_fdt_patch(const void *live, void *fdt)
 	return copy_property(live, fdt, "/ts_kit/touchscreen@70", "phandle",
 		HISI_FDT_U32, 0);
 }
+
+int hisi_memory_fdt_patch(const void *live, void *fdt)
+{
+	return copy_property(live, fdt, "/memory", "reg", HISI_FDT_BYTES, 0);
+}
+
+int hisi_bootargs_fdt_patch(const void *live, void *fdt)
+{
+	return copy_property(live, fdt, "/chosen", "bootargs", HISI_FDT_STRING, 0);
+}

@@ -18,7 +18,6 @@ lib-$(CONFIG_LIBFDT) += \
 
 lib-$(CONFIG_LIBFDT) += \
 	fixfdt/patch-fdt.o \
-	fixfdt/patches/memory.o \
 	hisi/fdt.o \
 	hisi/patches.o
 
