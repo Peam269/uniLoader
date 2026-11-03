@@ -87,3 +87,9 @@ SECTIONS
 	_reloc_size = _reloc_end - _reloc_start;
 #endif
 }
+
+#ifdef CONFIG_HUAWEI_KIRIN970
+ASSERT(_start == 0x80000, "Kirin970: invalid uniLoader load address")
+ASSERT(_stack_end > _start && _stack_end < 0x10600000,
+       "Kirin970: uniLoader overlaps firmware reservations")
+#endif
