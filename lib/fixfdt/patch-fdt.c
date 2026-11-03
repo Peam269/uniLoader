@@ -15,7 +15,7 @@ static const fdt_patch default_fdt_patches[] = {
 	FDT_DEFAULT_PATCH_LIST
 };
 
-static char fdt_buf[CONFIG_FDT_BUF_SIZE];
+static char fdt_buf[CONFIG_FDT_BUF_SIZE] __attribute__((aligned(8)));
 
 static int do_fdt_patches(struct board_data *board, const void *fdt,
 	const void* bootloader_fdt)
