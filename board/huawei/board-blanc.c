@@ -7,6 +7,9 @@
 #include <board.h>
 #include <drivers/framework.h>
 #include <drivers/simplefb.h>
+#ifdef CONFIG_LIBFDT
+#include <lib/hisi/patches.h>
+#endif
 
 #define DSS_BASE		0xE8600000U
 #define DSS_LDI0		(DSS_BASE + 0x7D000)
@@ -37,6 +40,24 @@ static void dss_set_reg(void* addr, uint32_t val,
 	writel(tmp | ((val & mask) << bs), addr);
 }
 
+#ifdef CONFIG_LIBFDT
+static const fdt_patch blanc_fdt_patches[] = {
+	RAMDISK_PATCH
+	hisi_memory_fdt_patch,
+	hisi_camera_fdt_patch,
+	hisi_logo_fdt_patch,
+	hisi_lcd_panel_fdt_patch,
+	hisi_framebuffer_fdt_patch,
+	hisi_bootargs_fdt_patch,
+#ifdef CONFIG_RAMDISK_NO_COPY
+	hisi_initrd_fdt_patch,
+#endif
+	hisi_kaslr_fdt_patch,
+	hisi_psci_fdt_patch,
+	hisi_touchscreen_fdt_patch,
+};
+#endif
+
 int blanc_early_init(void)
 {
 	aarch64_enable_fpu();
@@ -60,6 +81,9 @@ int blanc_drv(void)
 
 struct board_data board_ops = {
 	.name = "huawei-blanc",
+#ifdef CONFIG_LIBFDT
+	DEFINE_FDT_PATCHES(blanc_fdt_patches),
+#endif
 	.ops = {
 		.early_init = blanc_early_init,
 		.drivers_init = blanc_drv
