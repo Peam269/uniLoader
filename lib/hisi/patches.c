@@ -2,6 +2,7 @@
 #include <array.h>
 #include <lib/hisi/fdt.h>
 #include <lib/hisi/patches.h>
+#include <lib/libfdt/libfdt.h>
 
 static int copy_property(const void *live, void *fdt, const char *path,
 	const char *name, enum hisi_fdt_value_type type, int drop_if_missing)
@@ -63,6 +64,22 @@ int hisi_psci_fdt_patch(const void *live, void *fdt)
 
 int hisi_memory_fdt_patch(const void *live, void *fdt)
 {
+	const void *reg;
+	int node, len, ret;
+
+	/* EMUI9 firmware fills in /memory@0 and leaves /memory empty */
+	node = fdt_path_offset(live, "/memory@0");
+	if (node >= 0) {
+		reg = fdt_getprop(live, node, "reg", &len);
+		if (!reg || len <= 0 || len % 16)
+			return -FDT_ERR_BADVALUE;
+		ret = copy_property(live, fdt, "/memory@0", "reg",
+			HISI_FDT_BYTES, 0);
+		if (ret)
+			return ret;
+	} else if (node != -FDT_ERR_NOTFOUND) {
+		return node;
+	}
 	return copy_property(live, fdt, "/memory", "reg", HISI_FDT_BYTES, 0);
 }
 
